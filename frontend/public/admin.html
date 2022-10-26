@@ -1,0 +1,386 @@
+<!--p2112790 Jayden Yap DAAA/1B/FT/04-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" type="image/x-icon" href="../images/SPicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Admin | SP IT</title>
+    <!--CSS-->
+    <link rel="stylesheet" href="/css/nav.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+    <!--NAVBAR-->
+    <nav class="navbar navbar-icon-top navbar-expand-lg navbar-dark bg-dark" style="margin-bottom: 40px;">
+        <a class="navbar-brand" href="/">
+            <h2><span class="text-danger">SP</span> IT!</h2>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">
+                        <i class="fa fa-home"></i>
+                        Home
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/promotions.html">
+                        <i class="fa fa-dollar"></i>
+                        Promotions
+                    </a>
+                </li>
+                <li class="nav-item" id="profile">
+                    <a class="nav-link" href="/profile.html">
+                        <i class="fa fa-user"></i>
+                        Profile
+                    </a>
+                </li>
+                <li class="nav-item active" id="admin">
+                    <a class="nav-link" href="/admin.html">
+                        <i class="fa fa-envelope-o"></i>
+                        Admin
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ">
+                <li class="nav-item">
+                    <h6 class="nav-link" id="loggedUser"></h6>
+                </li>
+                <li class="nav-item" id="login">
+                    <a class="nav-link" href="/login.html">
+                        <i class="fa fa-sign-in">
+                        </i>
+                        Login
+                    </a>
+                </li>
+                <li class="nav-item" id="logout">
+                    <a class="nav-link" href="/logout.html">
+                        <i class="fa fa-sign-out">
+                        </i>
+                        Logout
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container">
+        <!--START-->
+        <h1>Admin Page</h1>
+        <br>
+        <!--Adding category-->
+        <h3>Add Product Category</h3>
+        <form id="addCategoryForm">
+            <div class="form-group">
+                <textarea class="form-control" id="cName" rows="1" placeholder="Name" required></textarea>
+                <textarea class="form-control" id="cDescription" rows="3" placeholder="Description"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Add Category</button>
+        </form>
+        <br>
+        <!--Adding product-->
+        <h3>Add Product Listing</h3>
+        <form id="addProductForm">
+            <div class="form-group">
+                <textarea class="form-control" id="pName" rows="1" placeholder="Name" required></textarea>
+                <textarea class="form-control" id="pBrand" rows="1" placeholder="Brand" required></textarea>
+                <textarea class="form-control" id="pDescription" rows="3" placeholder="Description"></textarea>
+                <label for="dropdownCategories">Category</label>
+                <select id="dropdownCategories" class="dropdown">
+                </select>
+                <br>
+                <label for="pPrice">Price</label>
+                <span>$<input type="number" id="pPrice" placeholder="99.99" min="0.00" max="10000.00" step="0.01"
+                        style="width:100px" required></span>
+            </div>
+            <button type="submit" class="btn btn-primary">Add Product</button>
+        </form>
+        <br>
+        <!--EDIT PRODUCT-->
+        <h3>Edit Product Listing</h3>
+        <form id="editProductForm">
+            <div class="form-group">
+                <label for="dropdownProduct">Product</label>
+                <select id="dropdownProduct" class="dropdown">
+                </select>
+                <br>
+                <label for="dropdownEditCategories">New Category</label>
+                <select id="dropdownEditCategories" class="dropdown">
+                </select>
+                <p>Leave fields empty to use old values</p>
+                <textarea class="form-control" id="pNewName" name="Name" rows="1" placeholder="New Name"
+                    required="required"></textarea>
+                <textarea class="form-control" id="pNewBrand" name="Brand" rows="1" placeholder="New Brand"></textarea>
+                <textarea class="form-control" id="pNewDescription" name="Description" rows="2"
+                    placeholder="New Description"></textarea>
+                <label for="pNewPrice">New Price: </label><span>$<input type="number" id="pNewPrice" placeholder="99.99"
+                        min="0.00" max="10000.00" step="0.01" style="width:100px"></span>
+            </div>
+            <button type="submit" class="btn btn-primary">Edit Product</button>
+        </form>
+        <br>
+        <!--DELETE PRODUCT-->
+        <h3>Delete Product</h3>
+        <form id="deleteProductForm">
+            <div class="form-group">
+                <label for="dropdownDelProducts">Product</label>
+                <select id="dropdownDelProducts" class="dropdown">
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Delete Product</button>
+        </form>
+        <br><br>
+        <!--Adding Promotion-->
+        <h3>Add Promotion</h3>
+        <form id="addPromotionForm">
+            <div class="form-group">
+                <label for="dropdownPromoProduct">Product</label>
+                <select id="dropdownPromoProduct" class="dropdown"></select>
+                <div><input type="text" id="proCode" placeholder="Discount Code" maxlength="10" size="14" required>
+                </div>
+                <label for="proDiscount">Discount (in %)</label>
+                <span><input type="number" id="proDiscount" placeholder="10" min="1" max="99" step="1"
+                        style="width:100px" required>%</span>
+                <br><br>
+                <h5>Set duration of Discount</h5>
+                <p class='text-muted'>in format YYYY-MM-DD HH:MM:SS (If time not given, will be 00:00:00)</p>
+                <textarea class="form-control datepicker" id="proStart" rows="1"
+                    placeholder="Start Time: eg. 2023-09-22 14:00:00" required></textarea>
+                <textarea class="form-control datepicker" id="proEnd" rows="1"
+                    placeholder="End Time: eg. 2023-10-17 18:00:00" required></textarea>
+                <br>
+            </div>
+            <button type="submit" class="btn btn-primary">Add Promotion</button>
+        </form>
+        <br>
+    </div>
+    <!-- FOOTER -->
+    <footer class="w-100 py-4 flex-shrink-0 bg-dark" style="margin-top: 50px;">
+        <div class="container py-4">
+            <div class="row gy-4 gx-5">
+                <div class="col-lg-4 col-md-6">
+                    <h4 class="h4 text-white">SP IT Store</h4>
+                    <p class="small text-muted">Find our store at SP T2245, terms and conditions apply.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <!--JS for checking token and updating navbars-->
+    <script>
+        //***********************TOKEN CHECK***********************
+        const localUrl = "http://localhost:8081";
+        const userToken = localStorage.getItem('token');
+        const loggedUserType = localStorage.getItem('userType')
+        const loggedUserName = localStorage.getItem('username')
+        axiosConfig = { headers: { Authorization: 'Bearer ' + userToken } }
+        axios.get(`${localUrl}/check`, axiosConfig)
+            .then((response) => {
+                //if all 3 variables are valid values, continue
+                document.getElementById("loggedUser").innerHTML = `Signed in as ${loggedUserName}`;
+                document.getElementById("login").style.visibility = "hidden";
+                document.getElementById("login").innerHTML = ""; //makes the rest of the bars go closer to 'home'
+                document.getElementById("logout").style.visibility = "visible";
+                document.getElementById("profile").style.visibility = "visible";
+                //if user is admin show the admin button
+                if (loggedUserType == 'Admin') {
+                    document.getElementById("admin").style.visibility = "visible";
+                } else {
+                    alert("YOU'RE NOT AN ADMIN! GET OUT")
+                    window.location.href = "/"
+                    document.getElementById("admin").style.visibility = "hidden";
+                }
+            })
+            .catch((error) => { //token expired
+                document.getElementById("login").style.visibility = "visible";
+                document.getElementById("logout").style.visibility = "hidden";
+                document.getElementById("profile").style.visibility = "hidden";
+                document.getElementById("admin").style.visibility = "hidden";
+                if (userToken != undefined) {
+                    localStorage.removeItem("token")
+                    localStorage.removeItem("userType")
+                    localStorage.removeItem("userid")
+                    localStorage.removeItem("username")
+                    alert('Your login token has expired, please login again')
+                    window.location.href = '/'
+                } else {
+                    alert('You are not logged in as an admin!')
+                    window.location.href = '/'
+                }
+            });
+    </script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function () {
+            baseUrl = "http://localhost:8081"
+            //**************************ADD CATEGORY**********************
+            axiosConfig = { headers: { Authorization: 'Bearer ' + localStorage.getItem('token') }, validateStatus: function (status) { return status < 400; } }
+            $("#addCategoryForm").submit((event) => {
+                event.preventDefault(); //prevent reload of page
+                var catName = $('#cName').val();
+                var catDesc = $('#cDescription').val();
+                var data = { category: catName, description: catDesc };
+                console.log(data);
+                axios.post(`${baseUrl}/category`, data, axiosConfig) //add jwt token to headers
+                    .then((response) => {
+                        alert(`Successfully added category ${catName}`)
+                        window.location.reload();
+                    })
+                    .catch((error) => {
+                        if (error.response.data.message != undefined) {
+                            alert(error + '\n' + error.response.data.message)
+                        } else {
+                            alert(error)
+                        }
+                    })
+            })
+            //*********************GET CATEGORIES FOR FORMS**********************
+            axios.get(`${baseUrl}/category`)
+                .then((response) => {
+                    allCategories = response.data;
+                    allCategories.forEach((category) => {
+                        categoryHtml = `
+                    <option value=${category.categoryid}>${category.category}</option>
+                    `
+                        $('#dropdownCategories').append(categoryHtml)
+                        $('#dropdownEditCategories').append(categoryHtml)
+                    })
+                })
+                .catch((error) => {
+                    if (error.response.data.message != undefined) {
+                        alert(error + '\n' + error.response.data.message)
+                    } else {
+                        alert(error)
+                    }
+                })
+            //************************ADDING PRODUCT***************************
+            $("#addProductForm").submit((event) => {
+                event.preventDefault(); //prevent reload of page
+                var name = $('#pName').val();
+                var description = $('#pDescription').val();
+                var categoryid = $('#dropdownCategories').val();
+                var brand = $('#pBrand').val();
+                var price = $('#pPrice').val();
+                var data = { name: name, description: description, categoryid: categoryid, brand: brand, price: price };
+                console.log(data);
+                axios.post(`http://localhost:8081/product/`, data, axiosConfig)
+                    .then((response) => {
+                        alert(`Successfully added product ${name}`)
+                        window.location.reload();
+                    })
+                    .catch((error) => {
+                        if (error.response.data.message != undefined) {
+                            alert(error + '\n' + error.response.data.message)
+                        } else {
+                            alert(error)
+                        }
+                    })
+            })
+            //**********************GET PRODUCTS FOR FORMS**********************
+            axios.get(`${baseUrl}/product`)
+                .then((response) => {
+                    allProducts = response.data;
+                    allProducts.forEach((product) => {
+                        productHtml = `
+                    <option value=${product.productid}>${product.name}</option>
+                    `
+                        //append in both edit and delete forms
+                        $('#dropdownProduct').append(productHtml)
+                        $('#dropdownDelProducts').append(productHtml)
+                        $('#dropdownPromoProduct').append(productHtml)
+                    })
+                })
+                .catch((error) => {
+                    if (error.response.data.message != undefined) {
+                        alert(error + '\n' + error.response.data.message)
+                    } else {
+                        alert(error)
+                    }
+                })
+            //***********************ADVANCED FEATURE EDIT/DELETE PRODUCTS****************
+            //**********************EDITING PRODUCT***********************
+            $("#editProductForm").submit((event) => {
+                event.preventDefault(); //prevent reload of page
+                var productid = $('#dropdownProduct').val();
+                var name = $('#pNewName').val();
+                var description = $('#pNewDescription').val();
+                var categoryid = $('#dropdownEditCategories').val();
+                var brand = $('#pNewBrand').val();
+                var price = $('#pNewPrice').val();
+                var data = { name: name, description: description, categoryid: categoryid, brand: brand, price: price };
+                console.log(data);
+                axios.put(`http://localhost:8081/product/${productid}`, data, axiosConfig)
+                    .then((response) => {
+                        alert(`Successfully edited product ${productid}`)
+                        window.location.reload();
+                    })
+                    .catch((error) => {
+                        if (error.response.data.message != undefined) {
+                            alert(error + '\n' + error.response.data.message)
+                        } else {
+                            alert(error)
+                        }
+                    })
+            })
+            //**********************DELETING PRODUCT***********************
+            $("#deleteProductForm").submit((event) => {
+                event.preventDefault(); //prevent reload of page
+                var productid = $('#dropdownDelProducts').val()
+                axios.delete(`http://localhost:8081/product/${productid}/`, axiosConfig)
+                    .then((response) => {
+                        alert(`Successfully deleted product ${productid}`)
+                        window.location.reload();
+                    })
+                    .catch((error) => {
+                        if (error.response.data.message != undefined) {
+                            alert(error + '\n' + error.response.data.message)
+                        } else {
+                            alert(error)
+                        }
+                    })
+            })
+
+            //**********************ADVANCED FEATURE ADDING PROMOTIONS**************
+            //**********************ADDING PROMOTION*****************************
+            $("#addPromotionForm").submit((event) => {
+                event.preventDefault(); //prevent reload of page
+                var productid = $('#dropdownPromoProduct').val();
+                var code = $('#proCode').val();
+                var discountpercent = $('#proDiscount').val();
+                var starttime = $('#proStart').val();
+                var endtime = $('#proEnd').val();
+                var data = { code: code, discountpercent: discountpercent, starttime: starttime, endtime: endtime };
+                console.log(data);
+                axios.post(`http://localhost:8081/discounts/${productid}`, data, axiosConfig)
+                    .then((response) => {
+                        alert(`Successfully added promotion for product with id ${productid} with code ${code}`)
+                        window.location.reload();
+                    })
+                    .catch((error) => {
+                        if (error.response.data.message != undefined) {
+                            alert(error + '\n' + error.response.data.message)
+                        } else {
+                            alert(error)
+                        }
+                    })
+            })
+        })
+    </script>
+</body>

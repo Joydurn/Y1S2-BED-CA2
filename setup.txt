@@ -1,0 +1,12 @@
+Hi cher, heres how to setup my back and frontend.
+1. Open up SP_IT.sql with MySQL workbench  and initialise the sp_it schema
+2. If necesary, change sql password in backend/model/databaseConfig.js to yours
+3. Using VS Code or Windows Terminal, use 'nodemon server.js' in backend folder to initialise the backend server.
+4. Do the same with 'nodemon FEserver.js in frontend folder to initalise frontend server.
+5. Now, when you visit http://localhost:3001/ my website should show up
+
+For logging in purposes, the 2 users 'Custa Mah' and 'Amin Nik Strater'
+(customer and admin respectively) are avaliable to use for testing purposes.
+both passwords are 'password' for your convenience
+
+Thank you, if any technical difficulties feel free to contact me at 8828 8954 :)

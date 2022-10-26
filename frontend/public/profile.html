@@ -1,0 +1,311 @@
+<!--p2112790 Jayden Yap DAAA/1B/FT/04-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="../images/SPicon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title id="userTitle">User Profile | SP IT</title>
+    <!--CSS-->
+    <link rel="stylesheet" href="/css/nav.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+    <!--NAVBAR-->
+    <nav class="navbar navbar-icon-top navbar-expand-lg navbar-dark bg-dark" style="margin-bottom: 40px;">
+        <a class="navbar-brand" href="/">
+            <h2><span class="text-danger">SP</span> IT!</h2>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">
+                        <i class="fa fa-home"></i>
+                        Home
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/promotions.html">
+                        <i class="fa fa-dollar"></i>
+                        Promotions
+                    </a>
+                </li>
+                <li class="nav-item active" id="profile">
+                    <a class="nav-link" href="/profile.html">
+                        <i class="fa fa-user"></i>
+                        Profile
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+                <li class="nav-item" id="admin">
+                    <a class="nav-link" href="/admin.html">
+                        <i class="fa fa-envelope-o"></i>
+                        Admin
+                    </a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ">
+                <li class="nav-item">
+                    <h6 class="nav-link" id="loggedUser"></h6>
+                </li>
+                <li class="nav-item" id="login">
+                    <a class="nav-link" href="/login.html">
+                        <i class="fa fa-sign-in">
+                        </i>
+                        Login
+                    </a>
+                </li>
+                <li class="nav-item" id="logout">
+                    <a class="nav-link" href="/logout.html">
+                        <i class="fa fa-sign-out">
+                        </i>
+                        Logout
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container">
+        <!--START-->
+        <h1 id="userHead"></h1>
+        <h5 id="userType"></h5>
+        <div id="email"></div>
+        <div id="contact"></div>
+        <div id="date"></div>
+        <br><br>
+        <h4 id="interestHead"></h4>
+        <div id="interests">
+        </div>
+        <br>
+        <h4>Add Interests</h4>
+        <!--ADD INTEREST FORM-->
+        <form id="addInterestForm">
+            <div id="checkBoxes" class="dropdown">
+
+            </div>
+            <br>
+            <button type="submitInterest" class="btn btn-primary">Add Interest</button>
+        </form>
+    </div>
+    <!-- FOOTER -->
+    <footer class="w-100 py-4 flex-shrink-0 bg-dark" style="margin-top: 50px;">
+        <div class="container py-4">
+            <div class="row gy-4 gx-5">
+                <div class="col-lg-4 col-md-6">
+                    <h4 class="h4 text-white">SP IT Store</h4>
+                    <p class="small text-muted">Find our store at SP T2245, terms and conditions apply.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!--JS-->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <!--JS for checking token and updating navbars-->
+    <script>
+        //***********************TOKEN CHECK***********************
+        const localUrl = "http://localhost:8081";
+        const userToken = localStorage.getItem('token');
+        const loggedUserType = localStorage.getItem('userType')
+        const loggedUserName = localStorage.getItem('username')
+        axiosConfig = { headers: { Authorization: 'Bearer ' + userToken } }
+        axios.get(`${localUrl}/check`, axiosConfig)
+            .then((response) => {
+                document.getElementById("loggedUser").innerHTML = `Signed in as ${loggedUserName}`;
+                //if all 3 variables are valid values, continue
+                document.getElementById("login").style.visibility = "hidden";
+                document.getElementById("login").innerHTML = ""; //makes the rest of the bars go closer to 'home'
+                document.getElementById("logout").style.visibility = "visible";
+                document.getElementById("profile").style.visibility = "visible";
+                //if user is admin show the admin button
+                if (loggedUserType == 'Admin') {
+                    document.getElementById("admin").style.visibility = "visible";
+                } else {
+                    document.getElementById("admin").style.visibility = "hidden";
+                }
+            })
+            .catch((error) => { //token expired
+                document.getElementById("login").style.visibility = "visible";
+                document.getElementById("logout").style.visibility = "hidden";
+                document.getElementById("profile").style.visibility = "hidden";
+                document.getElementById("admin").style.visibility = "hidden";
+                if (userToken != undefined) {
+                    localStorage.removeItem("token")
+                    localStorage.removeItem("userType")
+                    localStorage.removeItem("userid")
+                    localStorage.removeItem("username")
+                    alert('Your login token has expired, please login again')
+                    alert(error)
+                    window.location.href = "/login.html"
+                } else {
+                    alert('Please login to see your profile')
+                    window.location.href = "/login.html"
+                }
+            });
+    </script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+
+    <script>
+        const baseUrl = "http://localhost:8081";
+        //**************DELETE INTEREST***********
+        function deleteInterest(interestid) {
+            axios.delete(`${baseUrl}/interest/${interestid}`)
+                .then((response) => {
+                    alert("Sucessfully deleted interest, reloading page");
+                    window.location.reload();
+                })
+                .catch((error) => {
+                    if (error.response.data.message != undefined) {
+                        alert(error + '\n' + error.response.data.message)
+                    } else {
+                        alert(error)
+                    }
+                })
+        }
+    </script>
+    <script>
+        $(document).ready(function () {
+            //****************************GET USER DETAILS************************
+            if (localStorage.token != undefined && localStorage.token != null) {
+                var userid = parseInt(localStorage.userid) //get productid from url
+                axiosConfig = { headers: { Authorization: 'Bearer ' + localStorage.getItem('token') } }
+                axios.get(`${baseUrl}/users/${userid}/`, axiosConfig)
+                    .then((response) => {
+                        const user = response.data;
+                        fullDate = user.created_at
+                        splitDate = fullDate.split(' ')
+                        date = splitDate[0]
+                        //add product details to html
+                        $('#userTitle').text(`${user.username} - SP IT`)
+                        $(`#userHead`).text(`${user.username}`)
+                        $(`#userType`).text(`${user.type}`)
+                        $(`#email`).text(`${user.email}`)
+                        $(`#contact`).text(`Contact: ${user.contact}`)
+                        $(`#date`).text(`Joined on ${date}`)
+                    })
+                    .catch((error) => {
+                        if (error.response.data.message != undefined) {
+                            alert(error + '\n' + error.response.data.message)
+                        } else {
+                            alert(error)
+                        }
+                    });
+                //***************************GET USER INTERESTS********************************
+                axios.get(`${baseUrl}/interest/${userid}`)
+                    .then((response) => {
+                        $('#interestHead').text(`Your interested product categories`)
+                        const allInterests = response.data;
+                        numberOfInterests = allInterests.length;
+                        allInterests.forEach((interest) => {
+                            const interestHtml = `
+                        <div class="row">
+                                <div class="col-sm">
+                                    <div class="card" style="margin-top: 2rem;">
+                                        <div class="card-body">
+                                            <h5 class="card-text">${interest.category}</h5>
+                                            <p class="card-text">${interest.description}</p>
+                                        </div>
+                                        <div class="card-footer text-muted">
+                                            <button onClick="deleteInterest(${interest.intid})" class="btn btn-primary">Remove</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        `; //store hidden interestid in html card for use when deleting
+                            $("#interests").append(interestHtml);
+                        });
+                    })
+                    .catch((error) => {
+                        if (error.response.status == 404) { //no categories found
+                            $('#interestHead').text(`You have no product category interests, please add some :)`)
+                        } else if (error.response.data.message != undefined) {
+                            alert(error + '\n' + error.response.data.message)
+                        } else {
+                            alert(error)
+                        }
+                    });
+            } else { //if user not logged in, return to home page
+                alert('You must be logged in to view your profile, returning to home page')
+                window.location.href = '/'
+            }
+
+
+            //***********************ADD INTEREST**********************
+            //GET ALL CATEGORIES AND MAKE CHECKBOXES
+            axios.get(`${baseUrl}/category`)
+                .then((response) => {
+                    allCategories = response.data;
+                    i = 1
+                    allCategories.forEach((category) => {
+                        /*categoryHtml=`
+                        <option value=${category.categoryid}>${category.category}</option>
+                        `*/
+                        categoryHtml = `
+                    <label>
+                    <input type="checkbox" class="catCheck" id="checkbox${i}" value=${category.categoryid}>${category.category}
+                    </label><br>
+                    `
+                        $('#checkBoxes').append(categoryHtml)
+                        i++;
+                    })
+                })
+                .catch((error) => {
+                    if (error.response.data.message != undefined) {
+                        alert(error + '\n' + error.response.data.message)
+                    } else {
+                        alert(error)
+                    }
+                })
+
+            //ADD THE INTEREST
+            $("#addInterestForm").submit((event) => {
+                event.preventDefault(); //prevent reload of page
+                axiosConfig = { headers: { Authorization: 'Bearer ' + localStorage.getItem('token') } }
+                var loggedUserID = localStorage.getItem('userid');
+                categoryids = ''
+                count = 0;
+                for (var i = 1; i <= allCategories.length; i++) {
+                    if ($(`#checkbox${i}`).is(`:checked`)) {
+                        categoryid = $(`#checkbox${i}`).val()
+                        if (count > 0) { //add commas 
+                            console.log("adding a comma")
+                            categoryids += ','
+                        }
+                        console.log("adding a id")
+                        categoryids += `${categoryid}`
+                        count++;
+                    }
+                }
+                var data = { categoryids: categoryids };
+                console.log(categoryids)
+                axios.post(`${baseUrl}/interest/${loggedUserID}`, data, axiosConfig)
+                    .then((response) => {
+                        alert("Success! Reloading Page")
+                        window.location.reload();
+                    })
+                    .catch((error) => {
+                        if (error.response.data.message != undefined) {
+                            alert(error + '\n' + error.response.data.message)
+                        } else {
+                            alert(error)
+                        }
+                    })
+            })
+        })
+    </script>
+</body>
